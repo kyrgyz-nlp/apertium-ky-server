@@ -13,6 +13,7 @@ RUN echo "deb http://apertium.projectjj.com/apt/release bullseye main" > /etc/ap
 RUN apt-get -qq update && apt-get -qq install apertium-all-dev autoconf automake libtool python-is-python3
 
 COPY ./apertium-kir /home/apertium-kir
+COPY get_json_from_sentence.py /home/apertium-kir
 WORKDIR /home/apertium-kir
 
 RUN cd /home/apertium-kir && ./autogen.sh --prefix=/home/apertium-kir
