@@ -1,0 +1,3 @@
+[submodule "apertium-kir"]
+	path = apertium-kir
+	url = git@github.com:apertium/apertium-kir.git
