@@ -2,23 +2,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Upload Text</title>
+    <title>Текст кошуу</title>
 </head>
 <body>
-    <h1>Upload Text</h1>
+    <h1>Текст кошуу</h1>
     <form method="post">
         {% csrf_token %}
-        <label for="title">Title:</label>
+        <label for="title">Аталышы:</label>
         <input type="text" name="title" id="title" required><br>
-        <label for="author">Author:</label>
+        <label for="author">Автор:</label>
         <input type="text" name="author" id="author" required><br>
-        <label for="date">Date:</label>
+        <label for="date">Дата:</label>
         <input type="date" name="date" id="date" required><br>
-        <label for="source">Source:</label>
+        <label for="source">Булак:</label>
         <input type="text" name="source" id="source" required><br>
-        <label for="content">Content:</label>
+        <label for="content">Текст:</label>
         <textarea name="content" id="content" required></textarea><br>
-        <button type="submit">Upload</button>
+        <button type="submit">Кошуу</button>
     </form>
 </body>
 </html>

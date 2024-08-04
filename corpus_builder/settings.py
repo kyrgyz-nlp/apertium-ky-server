@@ -58,7 +58,7 @@ ROOT_URLCONF = 'corpus_builder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates' / 'corpus' / 'templates'],
+        'DIRS': [BASE_DIR / 'templates' / 'corpus', BASE_DIR / 'templates' / 'partials'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ky-kg'
 
 TIME_ZONE = 'UTC'
 

@@ -40,17 +40,16 @@ def process_text(request, text_id):
     if text.status == 'Uploaded':
         text.status = 'Processing'
         text.save()
-        
+
         segmented_text = run_apertium_command(text.content)
         known_words, unknown_words = extract_base_words(segmented_text)
-        
+
         unknown_word_objs = []
         for word in unknown_words:
             positions = find_word_positions(text.content, word)
             unknown_word_objs.append(UnknownWord(word=word, text=text, context=text.content, positions=positions))
-        
+
         UnknownWord.objects.bulk_create(unknown_word_objs)
-        
         unknown_word_batch = UnknownWordBatch.objects.create(text=text)
         unknown_word_batch.words.set(unknown_word_objs)
         unknown_word_batch.status = 'Pending'
@@ -59,12 +58,10 @@ def process_text(request, text_id):
         text.status = 'Cleaned'
         text.save()
 
-        response_data = {
-            "known": known_words,
-            "unknown": unknown_words
-        }
-        return JsonResponse(response_data)
+        # Render partial template for HTMX
+        return render(request, 'unknown_words.html', {'unknown_words': unknown_words})
     return JsonResponse({"error": "Invalid status"}, status=400)
+
 
 def check_unknown_words(request, batch_id):
     batch = get_object_or_404(UnknownWordBatch, id=batch_id)
@@ -156,4 +153,5 @@ def upload_text(request):
 
 def text_detail(request, text_id):
     text = get_object_or_404(Text, id=text_id)
-    return render(request, 'text_detail.html', {'text': text})
+    unknown_words = UnknownWord.objects.filter(text=text)
+    return render(request, 'text_detail.html', {'text': text, 'unknown_words': unknown_words})
