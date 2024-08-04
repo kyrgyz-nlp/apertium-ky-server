@@ -1,0 +1,22 @@
+<!-- templates/text_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ text.title }}</title>
+</head>
+<body>
+    <h1>{{ text.title }}</h1>
+    <p>{{ text.content }}</p>
+    <p>Status: {{ text.get_status_display }}</p>
+    
+    {% if text.status == 'Uploaded' %}
+        <button hx-get="{% url 'process_text' text.id %}" hx-trigger="click" hx-target="#unknown-words">
+            Process Text
+        </button>
+    {% endif %}
+
+    <div id="unknown-words">
+        <!-- Unknown words will be loaded here -->
+    </div>
+</body>
+</html>

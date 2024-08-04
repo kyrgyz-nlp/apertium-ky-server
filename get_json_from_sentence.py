@@ -3,7 +3,7 @@ import json
 
 def run_apertium_command(input_text):
     # Команданы даярдоо
-    command = f'echo "{input_text}" | apertium -d . kir-seg'
+    command = f'echo "{input_text}" | apertium -d /home/app/apertium-kir kir-seg'
     
     # Команданы аткаруу
     result = subprocess.run(command, shell=True, capture_output=True, text=True)

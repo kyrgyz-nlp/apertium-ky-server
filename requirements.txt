@@ -1,0 +1,6 @@
+Django==5.0.7
+django-htmx==1.18.0
+djangorestframework==3.15.2
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1
+gunicorn==22.0.0
