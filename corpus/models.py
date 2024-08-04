@@ -18,6 +18,9 @@ class Text(models.Model):
     content = models.TextField()
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Uploaded')
 
+    def __str__(self) -> str:
+        return f"{self.author}: {self.title[:15]}..."
+
 
 class VersionedText(models.Model):
     text = models.ForeignKey(Text, on_delete=models.CASCADE)
@@ -42,6 +45,9 @@ class UnknownWord(models.Model):
     correct_form = models.CharField(max_length=255, null=True, blank=True)
     positions = models.JSONField()
 
+    def __str__(self) -> str:
+        return self.word
+
 
 class UnknownWordBatch(models.Model):
     STATUS_CHOICES = [
@@ -56,3 +62,6 @@ class UnknownWordBatch(models.Model):
     text = models.ForeignKey(Text, on_delete=models.CASCADE)
     words = models.ManyToManyField(UnknownWord)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Pending')
+
+    def __str__(self) -> str:
+        return f"{self.text.title} текстиндеги белгисиз сөздөр"

@@ -7,9 +7,9 @@ class TextAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date', 'status')
 
 
-class UnknownWordBatchAdmin(admin.ModelAdmin):
-    list_display = ('text', 'status')
-    filter_horizontal = ('words',)
+class UnknownWordAdmin(admin.ModelAdmin):
+    list_display = ('word', 'text')
+    search_fields = ["word"]
 
 
 class VersionedTextAdmin(admin.ModelAdmin):
@@ -18,6 +18,6 @@ class VersionedTextAdmin(admin.ModelAdmin):
 
 admin.site.register(Text, TextAdmin)
 admin.site.register(Metadata)
-admin.site.register(UnknownWord)
-admin.site.register(UnknownWordBatch, UnknownWordBatchAdmin)
+admin.site.register(UnknownWord, UnknownWordAdmin)
+admin.site.register(UnknownWordBatch)
 admin.site.register(VersionedText, VersionedTextAdmin)
