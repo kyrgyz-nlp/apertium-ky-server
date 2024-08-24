@@ -46,14 +46,17 @@ def process_text(request, text_id):
 
         unknown_word_objs = []
         for word in unknown_words:
-            positions = find_word_positions(text.content, word)
-            unknown_word_objs.append(UnknownWord(word=word, text=text, context=text.content, positions=positions))
+            if not UnknownWord.objects.filter(word=word, text=text).exists():  # Check if the word already exists
+                positions = find_word_positions(text.content, word)
+                unknown_word_objs.append(UnknownWord(word=word, text=text, context=text.content, positions=positions))
 
-        UnknownWord.objects.bulk_create(unknown_word_objs)
-        unknown_word_batch = UnknownWordBatch.objects.create(text=text)
-        unknown_word_batch.words.set(unknown_word_objs)
-        unknown_word_batch.status = 'Pending'
-        unknown_word_batch.save()
+        # Only bulk create new unknown words if there are any
+        if unknown_word_objs:
+            UnknownWord.objects.bulk_create(unknown_word_objs)
+            unknown_word_batch = UnknownWordBatch.objects.create(text=text)
+            unknown_word_batch.words.set(unknown_word_objs)
+            unknown_word_batch.status = 'Pending'
+            unknown_word_batch.save()
 
         text.status = 'Cleaned'
         text.save()
