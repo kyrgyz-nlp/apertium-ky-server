@@ -85,6 +85,10 @@ target/
 __pycache__/
 local_settings.py
 
+# Environment variables
 .env
+# But keep the example file
+!.env.example
+
 db.sqlite3
 staticfiles/*
